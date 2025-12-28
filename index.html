@@ -3,198 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Wahab | Celebration</title>
+    <title>Happy Birthday Wahab</title>
     <style>
-        /* Modern Reset & Background */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
         }
 
-        /* Main Photo Frame */
-        .frame {
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            border: 10px solid #fff;
+        /* Main Frame Container */
+        .main-card {
+            background: white;
+            width: 95vw;
+            max-width: 1100px;
+            height: 600px;
             display: flex;
-            flex-direction: row;
-            width: 90%;
-            max-width: 1000px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative;
-            border-radius: 4px;
+            border: 15px solid #fff;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* Left Side: Calendar Section */
+        /* 1. Left Section: Calendar */
         .calendar-section {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 10px;
-            border-right: 1px solid #eee;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .month-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #444;
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        th { padding-bottom: 10px; color: #999; }
-        td { padding: 5px; }
-        .special-day {
-            background: #ff4d6d;
-            color: white;
-            border-radius: 50%;
+        .month-name {
+            font-size: 28px;
             font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        /* Middle: Photo Collage Grid */
-        .collage-grid {
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .calendar-table th { padding: 5px; color: #999; }
+        .calendar-table td { padding: 8px; text-align: center; }
+
+        .heart-bg {
+            position: absolute;
+            left: -20px;
+            bottom: 50px;
+            font-size: 250px;
+            color: rgba(255, 182, 193, 0.2);
+            z-index: -1;
+        }
+
+        /* 2. Middle Section: Collage */
+        .collage-section {
             flex: 2;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 100px;
-            gap: 8px;
-            padding: 0 20px;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 30px;
         }
 
         .photo {
-            background: #f9f9f9;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid #ddd;
+            background: #e0e0e0;
             background-size: cover;
             background-position: center;
-            transition: transform 0.3s ease;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
 
-        .photo:hover { transform: scale(1.05); z-index: 10; }
-        
-        /* Layout logic to match your image */
-        .p1 { grid-row: span 2; }
-        .p2 { grid-column: span 1; }
-        .p-main { grid-column: span 2; grid-row: span 3; }
+        /* Collage Sizes to match your original frame */
+        .p-big { grid-column: span 1; grid-row: span 2; }
+        .p-wide { grid-column: span 2; grid-row: span 2; }
 
-        /* Right Side: Vertical Text */
+        /* 3. Right/Bottom Section: Text */
         .text-section {
-            flex: 0.8;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            justify-content: flex-end;
+            align-items: flex-end;
         }
 
-        .wish-vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-size: 2.5rem;
+        .wish-text {
+            font-size: 45px;
             font-weight: 900;
-            letter-spacing: 5px;
-            color: #222;
+            color: #1a1a1a;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-align: right;
         }
 
-        .name-tag {
-            margin-top: 15px;
-            font-size: 1.8rem;
-            font-weight: 800;
+        .name-highlight {
             color: #ff4d6d;
+            font-size: 55px;
         }
 
-        .cake { font-size: 3rem; margin-top: 10px; animation: bounce 2s infinite; }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Floating Hearts Animation */
-        .heart {
+        /* Hearts Animation */
+        .floating-heart {
             position: absolute;
-            color: rgba(255, 77, 109, 0.3);
-            font-size: 20px;
-            user-select: none;
-            pointer-events: none;
-            animation: float 5s linear infinite;
+            color: rgba(255, 77, 109, 0.4);
+            animation: float 4s infinite linear;
+            z-index: 10;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .frame { flex-direction: column; height: auto; }
-            .wish-vertical { writing-mode: horizontal-tb; font-size: 1.5rem; }
-            .collage-grid { grid-auto-rows: 70px; margin: 20px 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="frame">
+    <div class="main-card">
+        <div class="heart-bg">❤</div>
+
         <div class="calendar-section">
-            <div class="month-title">September</div>
-            <table>
-                <thead>
-                    <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-                    <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-                    <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
-                    <tr><td>21</td><td>22</td><td>23</td><td>24</td><td class="special-day">25</td><td>26</td><td>27</td></tr>
-                    <tr><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td><td></td></tr>
-                </tbody>
+            <div class="month-name">September</div>
+            <table class="calendar-table">
+                <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
+                <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+                <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+                <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+                <tr><td>21</td><td>22</td><td>23</td><td>24</td><td style="color:red; font-weight:bold;">25</td><td>26</td><td>27</td></tr>
+                <tr><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td><td></td></tr>
             </table>
         </div>
 
-        <div class="collage-grid">
-            <div class="photo p1" style="background-image: url('https://via.placeholder.com/300x500');"></div>
-            <div class="photo p2" style="background-image: url('https://via.placeholder.com/300');"></div>
-            <div class="photo p2" style="background-image: url('https://via.placeholder.com/300');"></div>
-            <div class="photo p-main" style="background-image: url('https://via.placeholder.com/600');"></div>
-            <div class="photo" style="background-image: url('https://via.placeholder.com/300');"></div>
-            <div class="photo" style="background-image: url('https://via.placeholder.com/300');"></div>
+        <div class="collage-section">
+            <div class="photo"></div>
+            <div class="photo"></div>
+            <div class="photo"></div>
+            <div class="photo p-wide"></div> <div class="photo"></div>
+            <div class="photo"></div>
+            <div class="photo"></div>
         </div>
 
         <div class="text-section">
-            <div class="wish-vertical">Happy Birthday</div>
-            <div class="name-tag">Wahab</div>
-            <div class="cake">🎂</div>
+            <div class="wish-text">
+                HAPPY BIRTHDAY <br>
+                <span class="name-highlight">Wahab</span>
+            </div>
+            <div style="font-size: 50px;">🎂</div>
         </div>
     </div>
 
     <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+        // Simple hearts animation
+        function addHeart() {
+            const h = document.createElement('div');
+            h.innerHTML = '❤';
+            h.className = 'floating-heart';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 4000);
         }
-        setInterval(createHeart, 400);
+        setInterval(addHeart, 500);
     </script>
 </body>
 </html>
